@@ -1,0 +1,5 @@
+<mapper namespace="com.flow.snow.snow.mapper.UserMapper" >
+    <select id="getAll" resultMap="com.flow.snow.snow.entity.User"  >
+        SELECT * FROM users
+    </select>
+</mapper>
