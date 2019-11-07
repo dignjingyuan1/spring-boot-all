@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+hello
+<script type="text/javascript">
+    // 註冊接口
+    var registerParams = {
+        user:{
+            id: '',
+            userName: 'dudu',
+            nickName: 'firstPerson',
+            passWord: '123456',
+            headImg: '',
+            sex: '男',
+            phone: '18041107875',
+            contactNumber: '18041107875',
+            carId: '',
+            weChat: 'dingyiweiwei'
+        },
+        car: {
+            id: '',
+            carNo: '辽B6SM13',
+            carColor: '白色',
+            carType: '紧凑型轿车',
+            carBrand: '大众朗逸',
+        }
+    }
+    $.ajax({
+        url:"/user/register",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify(registerParams),
+        success:function(result){
+            console.log(result)
+        }
+    });
+    // 登錄接口
+    // $.ajax({
+    //     url:"/user/login",
+    //     type: "POST",
+    //     data: {
+    //         userName: 'ding',
+    //         passWord: '123456',
+    //     },
+    //     success:function(result){
+    //         console.log(result)
+    //     }
+    // });
+    // 生成订单接口
+    // $.ajax({
+    //     url:"/order/createRouteOrder",
+    //     type: "POST",
+    //     data: {
+    //         startStationName: '新里程小门',
+    //         endStationName: '万达公交站',
+    //         amount: '5',
+    //         direction: '上车地点是新里程小门，请提前到达哦。',
+    //         departureTime: new Date("2019-11-07 15:00:00"),
+    //         maxPersonNum: '3'
+    //     },
+    //     success:function(result){
+    //         console.log(result)
+    //     }
+    // });
+    // 查看订单详情
+    // $.ajax({
+    //     url:"/order/routeOrderDetail",
+    //     type: "GET",
+    //     data: {
+    //         orderId: '1'
+    //     },
+    //     success:function(result){
+    //         console.log(result)
+    //     }
+    // });
+</script>
+</body>
+</html>

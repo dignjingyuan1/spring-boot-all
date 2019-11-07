@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface UserService {
-    User findByUserName(String userName);
-    List<User> findUser(Pageable pageable);
-    List<User> getAll();
+    void insertUser(User user);
+    User findUserByNameAndPass(String username, String password);
+    User findUserById(long id);
 }

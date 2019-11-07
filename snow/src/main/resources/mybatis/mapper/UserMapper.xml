@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.snow.snow.mapper.UserMapper" >
+    <insert id="insertUser">
+		insert into user(
+			car_id,
+			contact_number,
+			head_img,
+			nick_name,
+			pass_word,
+			phone,
+			sex,
+			user_name,
+			we_chat
+		)
+		values(
+			#{carId},
+			#{contactNumber},
+			#{headImg},
+			#{nickName},
+			#{passWord},
+			#{phone},
+			#{sex},
+			#{userName},
+			#{weChat}
+		)
+    </insert>
+</mapper>

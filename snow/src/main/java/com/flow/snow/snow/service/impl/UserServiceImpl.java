@@ -5,28 +5,27 @@ import com.flow.snow.snow.entity.User;
 import com.flow.snow.snow.mapper.UserMapper;
 import com.flow.snow.snow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
     private UserMapper userMapper;
+
     @Override
-    public User findByUserName(String userName) {
-        return userDao.findByUserName(userName);
+    public void insertUser(User user) {
+        userMapper.insertUser(user);
     }
 
     @Override
-    public List<User> findUser(Pageable pageable) {
-        return userDao.findAll();
+    public User findUserByNameAndPass(String username, String password) {
+        return userDao.findByUserNameAndPassWord(username,password);
     }
 
     @Override
-    public List<User> getAll() {
-        return userMapper.getAll();
+    public User findUserById(long id) {
+        return userDao.findUserById(id);
     }
 }

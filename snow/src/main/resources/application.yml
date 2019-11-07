@@ -12,7 +12,7 @@ logging:
 spring:
   #配置链接数据库
   datasource:
-    url: jdbc:mysql://localhost:3307/snow?serverTimezone=CTT
+    url: jdbc:mysql://localhost:3306/car?serverTimezone=CTT
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
@@ -37,6 +37,8 @@ spring:
       max-idle: 8 # 连接池中的最大空闲连接
       min-idle: 0 # 连接池中的最小空闲连接
     timeout: 5000  # 连接超时时间（毫秒）
+  resources:
+    static-locations: classpath:/page/
 #  rabbitmq:
 #    host: 127.0.0.1
 #    port: 5672

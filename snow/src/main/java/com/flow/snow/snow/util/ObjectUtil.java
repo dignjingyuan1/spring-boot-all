@@ -1,5 +1,6 @@
 package com.flow.snow.snow.util;
 
+
 import com.alibaba.fastjson.JSON;
 
 import java.lang.reflect.Method;
@@ -10,8 +11,7 @@ import java.util.List;
 public class ObjectUtil {
     public static <T> T convert(Object src, Class<T> clazz) {
         String json = JSON.toJSONString(src);
-        T object = JSON.parseObject(json, clazz);
-        return object;
+        T object = JSON.parseObject(json, clazz);        return object;
     }
 
     /**

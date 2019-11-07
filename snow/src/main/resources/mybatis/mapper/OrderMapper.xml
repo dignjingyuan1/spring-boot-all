@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.snow.snow.mapper.OrderMapper" >
+    <insert id="insertRouteOrder" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+		insert into route_order(
+			order_no,
+			amount,
+			create_time,
+			departure_time,
+			start_station_name,
+			end_station_name,
+			max_person_num,
+			<if test="direction != null">
+				direction,
+			</if>
+			<if test="driverId != null">
+				driver_id,
+			</if>
+			<if test="driverId != null">
+				passenger_id,
+			</if>
+			status
+		)
+		values(
+			#{orderNo},
+			#{amount},
+			now(),
+			#{departureTime},
+			#{startStationName},
+			#{endStationName},
+			#{maxPersonNum},
+			<if test="direction != null">
+				#{direction},
+			</if>
+			<if test="driverId != null">
+				#{driverId},
+			</if>
+			<if test="driverId != null">
+				#{passengerId},
+			</if>
+			#{status}
+		)
+    </insert>
+
+	<update id="updateRouteOrder"  parameterType="com.flow.snow.snow.entity.RouteOrder">
+		UPDATE route_order
+		<trim prefix="set" suffixOverrides=",">
+			<if test="amount!=null">amount=#{amount},</if>
+			<if test="departureTime!=null">departure_time=#{departureTime},</if>
+			<if test="direction!=null">direction=#{direction},</if>
+			<if test="passengerId!=null">passenger_id=#{passengerId},</if>
+			<if test="driverId!=null">driver_id=#{driverId},</if>
+			<if test="startStationName!=null">start_station_name=#{startStationName},</if>
+			<if test="endStationName!=null">end_station_name=#{endStationName},</if>
+			<if test="maxPersonNum!=null">max_person_num=#{maxPersonNum},</if>
+			<if test="orderNo!=null">order_no=#{orderNo},</if>
+			<if test="status!=null">status=#{status},</if>
+			create_time = now()
+		</trim>
+		WHERE id=#{id}
+	</update>
+</mapper>

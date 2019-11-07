@@ -18,11 +18,19 @@ public class User implements Serializable {
     @Column(nullable = false, unique = true)
     private String userName;
     @Column(nullable = false)
-    private String passWord;
-    @Column(nullable = false, unique = true)
-    private String email;
-    @Column(nullable = true, unique = true)
     private String nickName;
     @Column(nullable = false)
-    private String regTime;
+    private String passWord;
+    @Column(nullable = true)
+    private String headImg;
+    @Column(nullable = false)
+    private String sex;
+    @Column(nullable = false)
+    private String phone;
+    @Column(nullable = false)
+    private String contactNumber;
+    @Column(nullable = false)
+    private long carId;
+    @Column(nullable = false)
+    private String weChat;
 }
