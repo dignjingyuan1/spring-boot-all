@@ -59,4 +59,36 @@
 		</trim>
 		WHERE id=#{id}
 	</update>
+
+	<select id="findRouteOrderList" resultType="com.flow.snow.snow.request.data.RouteOrderData">
+		SELECT
+			 ro.id,
+			 ro.order_no AS orderNo,
+			 ro.passenger_id AS passengerId,
+			 ro.driver_id AS driverId,
+			 ro.start_station_name AS startStationName,
+			 ro.end_station_name AS endStationName,
+			 ro.amount,
+			 ro.direction,
+			 ro.departure_time AS epartureTime,
+			 ro.max_person_num AS maxPersonNum,
+			 ro.status,
+			 ro.create_time AS createTime,
+			 u.id,
+			 u.user_name AS userName,
+			 u.nick_name AS nickName,
+			 u.head_img AS headImg,
+			 u.sex,
+			 u.contact_number AS contactNumber,
+			 u.we_chat AS weChat,
+			 u.car_id AS carId,
+			 c.car_no AS carNo,
+			 c.car_color AS carColor,
+			 c.car_type AS carType,
+			 c.car_brand AS carBrand
+		FROM route_order ro
+		LEFT JOIN `user` u ON ro.driver_id = u.id
+		LEFT JOIN car c ON u.car_id = c.id
+		WHERE ro.status = '0'
+	</select>
 </mapper>

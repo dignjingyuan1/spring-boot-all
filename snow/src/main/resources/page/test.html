@@ -8,38 +8,38 @@
 <body>
 hello
 <script type="text/javascript">
-    // 註冊接口
-    var registerParams = {
-        user:{
-            id: '',
-            userName: 'dudu',
-            nickName: 'firstPerson',
-            passWord: '123456',
-            headImg: '',
-            sex: '男',
-            phone: '18041107875',
-            contactNumber: '18041107875',
-            carId: '',
-            weChat: 'dingyiweiwei'
-        },
-        car: {
-            id: '',
-            carNo: '辽B6SM13',
-            carColor: '白色',
-            carType: '紧凑型轿车',
-            carBrand: '大众朗逸',
-        }
-    }
-    $.ajax({
-        url:"/user/register",
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        data: JSON.stringify(registerParams),
-        success:function(result){
-            console.log(result)
-        }
-    });
+    // // 註冊接口
+    // var registerParams = {
+    //     user:{
+    //         id: '',
+    //         userName: 'dudu',
+    //         nickName: 'firstPerson',
+    //         passWord: '123456',
+    //         headImg: '',
+    //         sex: '男',
+    //         phone: '18041107875',
+    //         contactNumber: '18041107875',
+    //         carId: '',
+    //         weChat: 'dingyiweiwei'
+    //     },
+    //     car: {
+    //         id: '',
+    //         carNo: '辽B6SM13',
+    //         carColor: '白色',
+    //         carType: '紧凑型轿车',
+    //         carBrand: '大众朗逸',
+    //     }
+    // }
+    // $.ajax({
+    //     url:"/user/register",
+    //     type: "POST",
+    //     dataType: "json",
+    //     contentType: "application/json;charset=utf-8",
+    //     data: JSON.stringify(registerParams),
+    //     success:function(result){
+    //         console.log(result)
+    //     }
+    // });
     // 登錄接口
     // $.ajax({
     //     url:"/user/login",
@@ -79,6 +79,14 @@ hello
     //         console.log(result)
     //     }
     // });
+    // 获取订单列表
+    $.ajax({
+        url:"/order/routeOrderList",
+        type: "GET",
+        success:function(result){
+            console.log(result)
+        }
+    });
 </script>
 </body>
 </html>

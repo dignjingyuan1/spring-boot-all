@@ -3,6 +3,7 @@ package com.flow.snow.snow.controller;
 import com.flow.snow.snow.entity.Car;
 import com.flow.snow.snow.entity.RouteOrder;
 import com.flow.snow.snow.entity.User;
+import com.flow.snow.snow.request.data.RouteOrderData;
 import com.flow.snow.snow.service.CarService;
 import com.flow.snow.snow.service.OrderService;
 import com.flow.snow.snow.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.print.Pageable;
 import java.util.*;
 
 @RestController
@@ -37,6 +39,14 @@ public class OrderController {
         System.out.println(id);
     }
 
+    /**
+     * 获取订单列表
+     * @return
+     */
+    @RequestMapping("/routeOrderList")
+    public List<RouteOrderData> getRouteOrderList(){
+        return orderService.findRouteOrderList();
+    }
     /**
      * 获取行程详情
      * @param orderId
