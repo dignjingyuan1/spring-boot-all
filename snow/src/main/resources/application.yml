@@ -48,8 +48,18 @@ spring:
 mybatis:
   config-locations: classpath:mybatis/mybatis-config.xml
   mapperLocations: classpath:mybatis/mapper/*.xml
-
+#token配置
+jwt:
+  config:
+    key: yidashunjianjiejing
+    ttl: 3600000000
 com:
   neo:
     title: 的肯定开始
     description: 打瞌睡法鸡
+
+filter:
+  excepts:
+    - /test.html
+    - /login
+    - /favicon.ico

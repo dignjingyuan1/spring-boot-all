@@ -9,10 +9,10 @@ import com.flow.snow.snow.service.OrderService;
 import com.flow.snow.snow.service.UserService;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.print.Pageable;
 import java.util.*;
 
 @RestController
@@ -31,7 +31,7 @@ public class OrderController {
      * @param routeOrder
      */
     @RequestMapping("/createRouteOrder")
-    private void createRouteOrder(RouteOrder routeOrder){
+    public void createRouteOrder(RouteOrder routeOrder){
         routeOrder.setOrderNo("XLC"+Math.random()*10000000000000000L);
         routeOrder.setDriverId(1L);
         routeOrder.setStatus("0");
@@ -53,7 +53,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping("/routeOrderDetail")
-    private Map<String,Object> routeOrderDetail(long orderId){
+    public Map<String,Object> routeOrderDetail(long orderId){
         RouteOrder routeOrder = orderService.findRouteOrderById(orderId);
         User user = userService.findUserById(routeOrder.getDriverId());
         Car car = carService.findCarByCarId(user.getCarId());
@@ -70,7 +70,7 @@ public class OrderController {
      * @param personCount
      */
     @RequestMapping("/getOnCar")
-    private void getOnCar(long orderId, int personCount){
+    public void getOnCar(long orderId, int personCount){
         // TODO 获取当前登录人
         long userId = 1L;
         // 获取订单

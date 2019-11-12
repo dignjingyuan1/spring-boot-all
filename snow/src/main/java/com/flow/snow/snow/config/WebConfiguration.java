@@ -1,20 +1,30 @@
 package com.flow.snow.snow.config;
 
+import com.flow.snow.snow.util.JwtUtil;
+import io.jsonwebtoken.Claims;
 import org.apache.catalina.filters.RemoteIpFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
 
 @Configuration
 public class WebConfiguration {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    private static final String[] excepts = new String[]{
+            "/test.html",
+            "/login",
+            "/favicon.ico"
+    };
 
     @Bean
     public RemoteIpFilter remoteIpFilter() {
@@ -45,10 +55,32 @@ public class WebConfiguration {
         @Override
         public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
                 throws IOException, ServletException {
-            // TODO Auto-generated method stub
             HttpServletRequest request = (HttpServletRequest) srequest;
             System.out.println("这是我的拦截器拦截到的地址是:"+request.getRequestURI());
-            filterChain.doFilter(srequest, sresponse);
+            // 消除例外
+            String uri = request.getRequestURI();
+            boolean isExcept = false;
+            for (String str: excepts){
+                if (uri.contains(str)){
+                    isExcept = true;
+                    break;
+                }
+            }
+            if (!isExcept) {
+                String tokenStr = request.getHeader("accessToken");
+                if (!StringUtils.isEmpty(tokenStr)) {
+                    try{
+                        Claims claims = jwtUtil.parseJWT(tokenStr);
+                    } catch (Exception e){
+                        throw new RuntimeException("无效令牌哦！");
+                    }
+                    filterChain.doFilter(srequest, sresponse);
+                }else{
+                    throw new RuntimeException("没有令牌哦！");
+                }
+            }else{
+                filterChain.doFilter(srequest, sresponse);
+            }
         }
 
         @Override

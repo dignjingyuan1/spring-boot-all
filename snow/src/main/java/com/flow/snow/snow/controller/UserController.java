@@ -5,11 +5,14 @@ import com.flow.snow.snow.entity.User;
 import com.flow.snow.snow.request.param.RegisterParams;
 import com.flow.snow.snow.service.CarService;
 import com.flow.snow.snow.service.UserService;
+import com.flow.snow.snow.util.JwtUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.beans.Transient;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -18,7 +21,8 @@ public class UserController {
     UserService userService;
     @Autowired
     CarService carService;
-
+    @Autowired
+    JwtUtil jwtUtil;
     /**
      * 注册接口
      * @param registerParams
@@ -40,9 +44,13 @@ public class UserController {
      * @return
      */
     @RequestMapping(path = "/login",method = RequestMethod.POST)
-    private User register(String userName, String passWord){
-        return userService.findUserByNameAndPass(userName, passWord);
+    public Object login(String userName, String passWord){
+        User user = userService.findUserByNameAndPass(userName,passWord);
+        // 生成token
+        String token = jwtUtil.createJWT(user.getId().toString(),user.getUserName(),"user");
+        Map<String, Object> result = new HashMap<>();
+        result.put("user", user);
+        result.put("token", token);
+        return  result;
     }
-
-
 }

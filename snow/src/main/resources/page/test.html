@@ -6,8 +6,10 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
 <body>
-hello
+按劳动法金坷垃时代峻峰
+</body>
 <script type="text/javascript">
+    var token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwic3ViIjoiZGluZyIsImlhdCI6MTU3MzU0NTY1Miwicm9sZSI6InVzZXIiLCJleHAiOjE1NzcxNDU2NTJ9.RQZaszh98DcE6xPosVuDzgDWMIw4oHL5X9CYPG8zKZc";
     // // 註冊接口
     // var registerParams = {
     //     user:{
@@ -83,10 +85,14 @@ hello
     $.ajax({
         url:"/order/routeOrderList",
         type: "GET",
+        beforeSend: function(request) {
+            request.setRequestHeader("accessToken", token);
+        },
+        data:{
+        },
         success:function(result){
             console.log(result)
         }
     });
 </script>
-</body>
 </html>
