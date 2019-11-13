@@ -53,11 +53,6 @@ jwt:
   config:
     key: yidashunjianjiejing
     ttl: 3600000000
-com:
-  neo:
-    title: 的肯定开始
-    description: 打瞌睡法鸡
-
 filter:
   excepts:
     - /test.html

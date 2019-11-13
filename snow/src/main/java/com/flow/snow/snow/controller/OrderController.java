@@ -1,5 +1,8 @@
 package com.flow.snow.snow.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.flow.snow.snow.entity.Car;
 import com.flow.snow.snow.entity.RouteOrder;
 import com.flow.snow.snow.entity.User;
@@ -11,7 +14,9 @@ import com.flow.snow.snow.util.OrderUtil;
 import com.flow.snow.snow.util.UserUtil;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
@@ -26,6 +31,8 @@ public class OrderController {
     UserService userService;
     @Autowired
     CarService carService;
+    @Autowired
+    RedisTemplate<String, String> redisTemplate;
 
     /**
      * 发布行程
@@ -70,7 +77,7 @@ public class OrderController {
      * @param orderId
      * @param personCount
      */
-    @RequestMapping("/getOnCar")
+    @RequestMapping(path = "/getOnCar", method = RequestMethod.POST)
     public void getOnCar(long orderId, int personCount){
         // 获取当前登录人
         User user = UserUtil.getLoginInfo();
@@ -96,6 +103,15 @@ public class OrderController {
         // 更新订单
         orderService.updateRouteOrder(routeOrder);
         // TODO 本站点人数-1
+        this.removeUserByStation(user);
         // TODO 添加到个人行程历史中
+    }
+
+    private void removeUserByStation(User user){
+        String stationName = redisTemplate.opsForValue().get(user.getId() + "loc");
+        String userListStr = redisTemplate.opsForValue().get(stationName);
+        List<User> userList = JSONObject.parseArray(userListStr, User.class);
+        userList.remove(user);
+        redisTemplate.opsForValue().set(stationName,JSON.toJSONString(userList)); // 把人放到车站池
     }
 }

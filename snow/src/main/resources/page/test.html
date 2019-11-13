@@ -85,13 +85,42 @@
     //     }
     // });
     // 获取订单列表
+    // $.ajax({
+    //     url:"/order/routeOrderList",
+    //     type: "GET",
+    //     beforeSend: function(request) {
+    //         request.setRequestHeader("accessToken", token);
+    //     },
+    //     data:{
+    //     },
+    //     success:function(result){
+    //         console.log(result)
+    //     }
+    // });
+    // 定位在哪站
+    // $.ajax({
+    //     url:"/user/location",
+    //     type: "POST",
+    //     beforeSend: function(request) {
+    //         request.setRequestHeader("accessToken", token);
+    //     },
+    //     data:{
+    //         stationName: '万科新里程小门'
+    //     },
+    //     success:function(result){
+    //         console.log(result)
+    //     }
+    // });
+    // 我要上车
     $.ajax({
-        url:"/order/routeOrderList",
-        type: "GET",
+        url:"/order/getOnCar",
+        type: "POST",
         beforeSend: function(request) {
             request.setRequestHeader("accessToken", token);
         },
         data:{
+            orderId: 24,
+            personCount: 2,
         },
         success:function(result){
             console.log(result)
