@@ -18,8 +18,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderDao orderDao;
     @Override
-    public int insertRouteOrder(RouteOrder routeOrder) {
-        return orderMapper.insertRouteOrder(routeOrder);
+    public void insertRouteOrder(RouteOrder routeOrder) {
+       orderMapper.insertRouteOrder(routeOrder);
     }
 
     @Override

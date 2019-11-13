@@ -9,7 +9,7 @@
 按劳动法金坷垃时代峻峰
 </body>
 <script type="text/javascript">
-    var token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwic3ViIjoiZGluZyIsImlhdCI6MTU3MzU0NTY1Miwicm9sZSI6InVzZXIiLCJleHAiOjE1NzcxNDU2NTJ9.RQZaszh98DcE6xPosVuDzgDWMIw4oHL5X9CYPG8zKZc";
+    var token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwic3ViIjoiZGluZyIsImlhdCI6MTU3MzYyNzQ4Mywicm9sZSI6InVzZXIiLCJleHAiOjE1NzcyMjc0ODN9.uw3IV4QAoqOlVa65uXp_jJtmHEiHxwlqedcdYrG6hT0";
     // // 註冊接口
     // var registerParams = {
     //     user:{
@@ -58,6 +58,9 @@
     // $.ajax({
     //     url:"/order/createRouteOrder",
     //     type: "POST",
+    //     beforeSend: function(request) {
+    //         request.setRequestHeader("accessToken", token);
+    //     },
     //     data: {
     //         startStationName: '新里程小门',
     //         endStationName: '万达公交站',

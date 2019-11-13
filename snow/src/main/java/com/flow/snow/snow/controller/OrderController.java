@@ -7,9 +7,10 @@ import com.flow.snow.snow.request.data.RouteOrderData;
 import com.flow.snow.snow.service.CarService;
 import com.flow.snow.snow.service.OrderService;
 import com.flow.snow.snow.service.UserService;
+import com.flow.snow.snow.util.OrderUtil;
+import com.flow.snow.snow.util.UserUtil;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,12 +32,12 @@ public class OrderController {
      * @param routeOrder
      */
     @RequestMapping("/createRouteOrder")
-    public void createRouteOrder(RouteOrder routeOrder){
-        routeOrder.setOrderNo("XLC"+Math.random()*10000000000000000L);
+    public Long createRouteOrder(RouteOrder routeOrder){
+        routeOrder.setOrderNo(OrderUtil.generateOrderNo());
         routeOrder.setDriverId(1L);
         routeOrder.setStatus("0");
-        int id = orderService.insertRouteOrder(routeOrder);
-        System.out.println(id);
+        orderService.insertRouteOrder(routeOrder);
+        return routeOrder.getId();
     }
 
     /**
@@ -71,8 +72,9 @@ public class OrderController {
      */
     @RequestMapping("/getOnCar")
     public void getOnCar(long orderId, int personCount){
-        // TODO 获取当前登录人
-        long userId = 1L;
+        // 获取当前登录人
+        User user = UserUtil.getLoginInfo();
+        long userId = user.getId();
         // 获取订单
         RouteOrder routeOrder = orderService.findRouteOrderById(orderId);
         // 把当前用户id拼到坐车人中

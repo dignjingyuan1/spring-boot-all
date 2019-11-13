@@ -56,7 +56,7 @@ public class WebConfiguration {
         public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
                 throws IOException, ServletException {
             HttpServletRequest request = (HttpServletRequest) srequest;
-            System.out.println("这是我的拦截器拦截到的地址是:"+request.getRequestURI());
+            System.out.println("ask url is:"+request.getRequestURI());
             // 消除例外
             String uri = request.getRequestURI();
             boolean isExcept = false;

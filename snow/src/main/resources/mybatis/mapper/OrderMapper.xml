@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flow.snow.snow.mapper.OrderMapper" >
-    <insert id="insertRouteOrder" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+    <insert id="insertRouteOrder" parameterType="com.flow.snow.snow.entity.RouteOrder" keyProperty="id" useGeneratedKeys="true" >
 		insert into route_order(
 			order_no,
 			amount,

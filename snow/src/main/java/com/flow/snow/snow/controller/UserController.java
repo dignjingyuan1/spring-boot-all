@@ -6,6 +6,7 @@ import com.flow.snow.snow.request.param.RegisterParams;
 import com.flow.snow.snow.service.CarService;
 import com.flow.snow.snow.service.UserService;
 import com.flow.snow.snow.util.JwtUtil;
+import com.flow.snow.snow.util.UserUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,7 @@ public class UserController {
         User user = userService.findUserByNameAndPass(userName,passWord);
         // 生成token
         String token = jwtUtil.createJWT(user.getId().toString(),user.getUserName(),"user");
+        UserUtil.setLoginInfo(token,user); // 加入到redis
         Map<String, Object> result = new HashMap<>();
         result.put("user", user);
         result.put("token", token);

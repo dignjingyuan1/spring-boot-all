@@ -6,7 +6,10 @@ import com.flow.snow.snow.request.data.RouteOrderData;
 import java.util.List;
 
 public interface OrderMapper {
-    int insertRouteOrder(RouteOrder routeOrder);
+
+    void insertRouteOrder(RouteOrder routeOrder);
+
     void updateRouteOrder(RouteOrder routeOrder);
+
     List<RouteOrderData> findRouteOrderList();
 }
