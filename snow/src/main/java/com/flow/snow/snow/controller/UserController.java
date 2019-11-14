@@ -67,16 +67,16 @@ public class UserController {
 
     /**
      * 定位到哪站
-     * @param stationName
+     * @param stationId
      */
     @RequestMapping(path = "/location", method = RequestMethod.POST)
-    public void location(String stationName){
+    public void location(long stationId){
         User user = UserUtil.getLoginInfo();
-        String stationStr = redisTemplate.opsForValue().get(stationName);
+        String stationStr = redisTemplate.opsForValue().get("station" + stationId);
         List<User> userList = JSONObject.parseArray(stationStr, User.class);
         userList.add(user);
         stationStr =  JSON.toJSONString(userList);
-        redisTemplate.opsForValue().set(stationName,stationStr); // 把人放到车站池
-        redisTemplate.opsForValue().set(user.getId() + "loc",stationName); // 表明此人在哪个车站
+        redisTemplate.opsForValue().set("station" + stationId,stationStr); // 把人放到车站池
+        redisTemplate.opsForValue().set(user.getId() + "loc","station" + stationId); // 表明此人在哪个车站
     }
 }

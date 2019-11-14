@@ -25,7 +25,7 @@ public class StationLoad implements ApplicationRunner {
         System.out.println("开始load站点池");
         List<Station> stations = stationService.findAll();
         for (Station station : stations){
-            redisTemplate.opsForValue().set(station.getName(),"[]");
+            redisTemplate.opsForValue().set("station" + station.getId(),"[]");
         }
     }
 }
