@@ -102,7 +102,7 @@ public class OrderController {
         routeOrder.setMaxPersonNum(personNum);
         // 更新订单
         orderService.updateRouteOrder(routeOrder);
-        // TODO 本站点人数-1
+        // 本站点人数-1
         this.removeUserByStation(user);
         // TODO 添加到个人行程历史中
     }
