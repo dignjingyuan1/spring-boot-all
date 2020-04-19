@@ -1,11 +1,12 @@
 package com.flow.snow.snow.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.flow.snow.snow.entity.Car;
 import com.flow.snow.snow.entity.User;
 import com.flow.snow.snow.request.param.RegisterParams;
+import com.flow.snow.snow.resultModel.ResultModel;
+import com.flow.snow.snow.resultModel.ResultMsgEnum;
 import com.flow.snow.snow.service.CarService;
 import com.flow.snow.snow.service.UserService;
 import com.flow.snow.snow.util.JwtUtil;
@@ -13,10 +14,7 @@ import com.flow.snow.snow.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,20 +47,24 @@ public class UserController {
 
     /**
      * 登錄接口
-     * @param userName
-     * @param passWord
+     * @param param
      * @return
      */
     @RequestMapping(path = "/login",method = RequestMethod.POST)
-    public Object login(String userName, String passWord){
-        User user = userService.findUserByNameAndPass(userName,passWord);
-        // 生成token
-        String token = jwtUtil.createJWT(user.getId().toString(),user.getUserName(),"user");
-        UserUtil.setLoginInfo(token,user); // 加入到redis
-        Map<String, Object> result = new HashMap<>();
-        result.put("user", user);
-        result.put("token", token);
-        return  result;
+    public ResultModel login(@RequestBody Map<String, String> param){
+        User user = userService.findUserByNameAndPass(param.get("userName"),param.get("passWord"));
+        if (user != null){
+            // 生成token
+            String token = jwtUtil.createJWT(user.getId().toString(),user.getUserName(),"user");
+            UserUtil.setLoginInfo(token,user); // 加入到redis
+            Map<String, Object> result = new HashMap<>();
+            result.put("user", user);
+            result.put("token", token);
+            return new ResultModel(ResultMsgEnum.SUCCESS,result);
+        }else{
+            return new ResultModel(ResultMsgEnum.LOGIN_ERROR,null);
+        }
+
     }
 
     /**

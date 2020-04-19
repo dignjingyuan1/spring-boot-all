@@ -1,6 +1,6 @@
 #配置log级别
 logging:
-  path: /user/local/log
+  path: /Users/dingjingyuan/workspace/logs/snow-log
   level:
     com:
       favorites: DEBUG
@@ -12,9 +12,9 @@ logging:
 spring:
   #配置链接数据库
   datasource:
-    url: jdbc:mysql://localhost:3306/car?serverTimezone=CTT
+    url: jdbc:mysql://localhost:3306/snow?serverTimezone=CTT
     username: root
-    password: root
+    password: ding521101
     driver-class-name: com.mysql.jdbc.Driver
   #配置jpa
   jpa:

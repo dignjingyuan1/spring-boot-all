@@ -22,7 +22,10 @@ public class WebConfiguration {
 
     private static final String[] excepts = new String[]{
             "/test.html",
+            "/index.html",
             "/login",
+            "/register",
+            "/static/",
             "/favicon.ico"
     };
 
@@ -56,7 +59,6 @@ public class WebConfiguration {
         public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
                 throws IOException, ServletException {
             HttpServletRequest request = (HttpServletRequest) srequest;
-            System.out.println("ask url is:"+request.getRequestURI());
             // 消除例外
             String uri = request.getRequestURI();
             boolean isExcept = false;
